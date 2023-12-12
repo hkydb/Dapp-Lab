@@ -1,13 +1,13 @@
 // 往 ProjectList 合约实例中写入示例数据
-const Web3 = require('web3');
-const config = require('config');
-const HDWalletProvider = require('truffle-hdwallet-provider');
-const ProjectList = require('../compiled/ProjectList.json');
-const address = require('../address.json');
+import Web3 from 'web3';
+import config from 'config';
+import HDWalletProvider from 'truffle-hdwallet-provider';
+import ProjectList from '../compiled/ProjectList.json';
+import address from '../address.json';
 
 const web3 = new Web3(new HDWalletProvider(
-    config.get('hdwallet'),
-    config.get('infuraUrl'),
+  config.get('hdwallet'),
+  config.get('infuraUrl'),
 ));
 const contract = new web3.eth.Contract(JSON.parse(ProjectList.interface), address);
 
@@ -36,7 +36,7 @@ const contract = new web3.eth.Contract(JSON.parse(ProjectList.interface), addres
     contract
       .methods.createProject(x.description, x.minInvest, x.maxInvest, x.goal)
       .send({ from: owner, gas: '5000000' })
-    )
+  )
   );
 
   console.log(results);

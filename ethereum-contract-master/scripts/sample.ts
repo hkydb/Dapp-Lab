@@ -1,4 +1,4 @@
-// 往 ProjectList 合约实例中写入示例数据
+// Write sample data to ProjectList contract instance
 import Web3 from 'web3';
 import config from 'config';
 import HDWalletProvider from 'truffle-hdwallet-provider';

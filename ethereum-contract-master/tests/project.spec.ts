@@ -13,26 +13,26 @@ let projectList;
 let project;
 
 describe('Project Contract', () => {
-  // 1. 每次跑单测时需要部署全新的合约实例，起到隔离的作用
+  // 1. Each time you run a single test, you need to deploy a brand new contract instance to serve as isolation
   beforeEach(async () => {
-    // 1.1 拿到 ganache 本地测试网络的账号
+    // 1.1 Get the account for the ganache local test network
     accounts = await web3.eth.getAccounts();
 
-    // 1.2 部署 ProjectList 合约
+    // 1.2 deploy ProjectList contract
     projectList = await new web3.eth.Contract(JSON.parse(ProjectList.interface))
       .deploy({ data: ProjectList.bytecode })
       .send({ from: accounts[0], gas: '5000000' });
 
-    // 1.3 调用 ProjectList 的 createProject 方法
+    // 1.3 invoking ProjectList of createProject method
     await projectList.methods.createProject('Ethereum DApp Tutorial', 100, 10000, 1000000).send({
       from: accounts[0],
       gas: '5000000',
     });
 
-    // 1.4 获取刚创建的 Project 实例的地址
+    // 1.4 Get the address of the Project instance you just created
     const [address] = await projectList.methods.getProjects().call();
 
-    // 1.5 生成可用的 Project 合约对象
+    // 1.5 Generate available Project contract objects
     project = await new web3.eth.Contract(JSON.parse(Project.interface), address);
   });
 
@@ -110,49 +110,49 @@ describe('Project Contract', () => {
   });
 
   it('allows investor to approve payments', async () => {
-    // 项目方、投资人、收款方账户
+    // Project owner, investor, payee accounts
     const owner = accounts[0];
     const investor = accounts[1];
     const receiver = accounts[2];
 
-    // 收款前的余额
+    // Balance before receipts
     const oldBalance = new BigNumber(await web3.eth.getBalance(receiver));
 
-    // 投资项目
+    // investment project
     await project.methods.contribute().send({
       from: investor,
       value: '5000',
     });
 
-    // 资金支出请求
+    // Requests for expenditure of funds
     await project.methods.createPayment('Rent Office', 2000, receiver).send({
       from: owner,
       gas: '1000000',
     });
 
-    // 投票
+    // voting
     await project.methods.approvePayment(0).send({
       from: investor,
       gas: '1000000',
     });
 
-    // 资金划转
+    // Funds transfer
     await project.methods.doPayment(0).send({
       from: owner,
       gas: '1000000',
     });
 
-    // 检查 payment 状态
+    // detecting payment's status
     const payment = await project.methods.payments(0).call();
     assert.equal(payment.completed, true);
     assert.equal(payment.voterCount, 1);
 
-    // 收款后的余额
+    // Balance after collections
     const newBalance = new BigNumber(await web3.eth.getBalance(receiver));
     const balanceDiff = newBalance.minus(oldBalance);
     console.log({ oldBalance, newBalance, balanceDiff });
 
-    // 确保精确的余额变化
+    // Ensure accurate balance changes
     assert.equal(balanceDiff, 2000);
   });
 });

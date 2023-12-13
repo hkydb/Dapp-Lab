@@ -1,9 +1,9 @@
 import Web3 from 'web3';
-import ABI from 'human-standard-token-abi';  // 因为所有的 ERC20 token 遵循相同的接口规范，这里ABI可以使用相同的
+import ABI from 'human-standard-token-abi';  // Because all ERC20 tokens follow the same interface specification, here the ABI can use the same
 
-const contractAddress = '0xa974c709cfb4566686553a20790685a47aceaa33'; // MIXIN 合约地址，在 Etherscan 上搜索能找到
-const accountAddress = '0x464fc4a06af689186154a4c0d4b062474f040a8a'; // 用户钱包
-const infuraUrl = 'https://mainnet.infura.io/145318c65eb443c2bf7c0ec83591e49d'; // 注意这里的环境
+const contractAddress = '0xa974c709cfb4566686553a20790685a47aceaa33'; // MIXIN contracted address, found by searching on Etherscan
+const accountAddress = '0x464fc4a06af689186154a4c0d4b062474f040a8a'; // user's wallet address
+const infuraUrl = 'https://mainnet.infura.io/145318c65eb443c2bf7c0ec83591e49d'; // pay attention to the network, here is the mainnet
 
 const web3 = new Web3(new Web3.providers.HttpProvider(infuraUrl));
 

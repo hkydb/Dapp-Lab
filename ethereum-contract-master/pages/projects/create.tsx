@@ -5,7 +5,7 @@ import { Link } from '../../routes';
 import web3 from '../../libs/web3';
 import ProjectList from '../../libs/projectList';
 import withRoot from '../../libs/withRoot';
-import Layout from '../../components/Layout';
+import Layout from '../../components/home-comp/Layout';
 
 class ProjectCreate extends React.Component {
   constructor(props) {

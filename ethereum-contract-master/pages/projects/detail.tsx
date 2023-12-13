@@ -19,8 +19,8 @@ import web3 from '../../libs/web3';
 import Project from '../../libs/project';
 import ProjectList from '../../libs/projectList';
 import withRoot from '../../libs/withRoot';
-import Layout from '../../components/Layout';
-import InfoBlock from '../../components/InfoBlock';
+import Layout from '../../components/home-comp/Layout';
+import InfoBlock from '../../components/common/InfoBlock';
 
 class ProjectDetail extends React.Component {
   static async getInitialProps({ query }) {

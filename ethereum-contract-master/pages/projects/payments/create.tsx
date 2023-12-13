@@ -5,7 +5,7 @@ import { Router } from '../../../routes';
 import web3 from '../../../libs/web3';
 import Project from '../../../libs/project';
 import withRoot from '../../../libs/withRoot';
-import Layout from '../../../components/Layout';
+import Layout from '../../../components/home-comp/Layout';
 
 class PaymentCreate extends React.Component {
   static async getInitialProps({ query }) {
